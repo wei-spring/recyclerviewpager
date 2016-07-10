@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.chunsheng.recyclerviewpagerlib.SnappingSwipingViewBuilder;
 import me.chunsheng.recyclerviewpagerlib.SnappyLinearLayoutManager;
 import me.chunsheng.recyclerviewpagerlib.SnappyRecyclerView;
@@ -26,7 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //--------------One-------------------
-        final CustomAdapter mAdapter = new CustomAdapter(new int[]{R.drawable.chuyinweilai1, R.drawable.chuyinweilai2, R.drawable.chuyinweilai3}, true);
+        final List<Boolean> scale = new ArrayList();
+        scale.add(false);
+        scale.add(true);
+        scale.add(false);
+        final CustomAdapter mAdapter = new CustomAdapter(new int[]{R.drawable.chuyinweilai1, R.drawable.chuyinweilai2, R.drawable.chuyinweilai3}, true, scale);
 
         SnappyRecyclerView recyclerView = new SnappingSwipingViewBuilder(this)
                 .setAdapter(mAdapter)
@@ -42,15 +49,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setOnItemSelectLitener(new SnappyRecyclerView.OnItemSelectLitener() {
             @Override
             public void onItemSelect(int position) {
-//                scale.clear();
-//                for (int i = 0; i < 3; i++) {
-//                    if (i == position) {
-//                        scale.add(true);
-//                    } else {
-//                        scale.add(false);
-//                    }
-//                }
-//                mAdapter.notifyDataSetChanged();
+                scale.clear();
+                for (int i = 0; i < 3; i++) {
+                    if (i == position) {
+                        scale.add(true);
+                    } else {
+                        scale.add(false);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
             }
         });
 
@@ -96,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
             rlContainTwo.addView(recyclerViewTwo);
         }
         //--------------Two-------------------
-
-
 
 
     }
